@@ -70,6 +70,32 @@ httpServer.listen(3001, () => {
 });
 ```
 
+#### Start NodeJS Server
+
+```bash
+node app.js
+```
+
+
+## client.html
+### add socket.io js
+
+```html
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"
+        integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI"
+        crossorigin="anonymous"></script>
+```
+
+## create socket and connect
+
+```js
+var socket = io.connect('http://localhost:3001');
+socket.on('connect', function () {
+    $('.circle').removeClass('red').addClass('green');
+    socket.emit('new connection', { data: 'my data', id: userId });
+});
+```
+
 
 
 
