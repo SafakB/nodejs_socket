@@ -8,16 +8,15 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, { cors: { origin: '*' } });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
     socket.on('new connection', (req) => {
         console.log('data: ' + req.data + ' id: ' + req.id);
     });
-    socket.on('chat message', (msg,userId) => {
+    socket.on('chat message', (msg, userId) => {
         console.log('message: ' + msg);
-        io.emit('chat message', msg,userId);
+        io.emit('chat message', msg, userId);
     });
 
 });

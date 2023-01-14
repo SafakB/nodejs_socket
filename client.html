@@ -10,9 +10,11 @@
             display: inline-block;
             margin-right: 10px;
         }
+
         .green {
             background-color: green;
         }
+
         .red {
             background-color: red;
         }
@@ -50,7 +52,7 @@
         var socket = io.connect('http://localhost:3001');
         socket.on('connect', function () {
             $('.circle').removeClass('red').addClass('green');
-            socket.emit('new connection', { data: 'my data', id: userId });
+            socket.emit('new connection', {data: 'my data', id: userId});
         });
 
         socket.on('disconnect', function () {
@@ -58,20 +60,31 @@
         });
 
         socket.on('chat message', (data) => {
-            $('.data').append(`<li>${data.msg} - ${data.userId}</li>`);
+            $('.data').append(`<li>(${data.userId}) : ${data.msg}</li>`);
         });
 
         $('.sumbit').click(function () {
-            var msg = $('#msg').val();
-            $('#msg').val('');
-            if (msg) {
-                socket.emit('chat message', { msg, userId });
+            sendMessage();
+        });
+
+        /* input keypress enter */
+        $('#msg').keypress(function (e) {
+            if (e.which == 13) {
+                sendMessage();
             }
         });
 
         $('.disconnect').click(function () {
             socket.disconnect();
         });
+
+        function sendMessage() {
+            var msg = $('#msg').val();
+            $('#msg').val('');
+            if (msg) {
+                socket.emit('chat message', {msg, userId});
+            }
+        }
     </script>
 
 
