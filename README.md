@@ -11,7 +11,8 @@ Creating server and client with socket connection
 - Check connection
 - Send Message
 - Get message
-- Disconnect
+- Get online users list and count
+- Connect / Disconnect
 
 ### Install
 
