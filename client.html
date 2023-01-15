@@ -23,7 +23,14 @@
 
 <body>
     <div>
-        <h2><span class="circle red"></span></h2>
+        <h4>
+            <span class="circle red"></span>
+            Socket Status
+        </h4>
+        <h4>
+            Online Users
+            <span class="online-count">0</span>
+        </h4>
         <h1>
             User ID
             <span class="user-id"></span>
@@ -37,6 +44,12 @@
         <button class="disconnect">
             Disconnect
         </button>
+        <button class="connect">
+            Connect
+        </button>
+        <p>
+            Kullanıcılar : <span class="online-users"></span>
+        </p>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <!-- socket.io client -->
@@ -55,12 +68,24 @@
             socket.emit('new connection', {data: 'my data', id: userId});
         });
 
+        socket.on('new connection', function (users) {
+            console.log(users);
+            $('.online-users').html(users.join(', '));
+        });
+
         socket.on('disconnect', function () {
             $('.circle').removeClass('green').addClass('red');
+            $('.online-users').html('?');
+            $('.online-count').html('?');
+
         });
 
         socket.on('chat message', (data) => {
             $('.data').append(`<li>(${data.userId}) : ${data.msg}</li>`);
+        });
+
+        socket.on('onlineCount', (data) => {
+            $('.online-count').html(data);
         });
 
         $('.sumbit').click(function () {
@@ -78,12 +103,22 @@
             socket.disconnect();
         });
 
+        $('.connect').click(function () {
+            connect();
+        });
+
         function sendMessage() {
-            var msg = $('#msg').val();
-            $('#msg').val('');
-            if (msg) {
-                socket.emit('chat message', {msg, userId});
+            if (socket.connected) {
+                var msg = $('#msg').val();
+                socket.emit('chat message', {msg: msg, userId: userId});
+                $('#msg').val('');
+            } else {
+                alert('Socket is not connected');
             }
+        }
+
+        function connect() {
+            socket.connect();
         }
     </script>
 
