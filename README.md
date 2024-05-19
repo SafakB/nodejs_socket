@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-#### Listen and send data
+#### 👂 Listen and send data
 
 ```js
 io.on('connection', (socket) => {
@@ -82,7 +82,7 @@ node app.js
 
 You can use it in a simple html page
 
-### add socket.io js
+### ➕ add socket.io js
 
 ```html
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"
