@@ -24,7 +24,7 @@ npm install socket.io
 yarn add socket.io
 ```
 
-### How to use
+### ❔ How to use
 #### Create consts
 
 ```js
@@ -38,7 +38,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, { cors: { origin: '*' } });
 ```
 
-#### Open Connection
+#### 🔌 Open Connection
 
 ```js
 io.on('connection', (socket) => {
@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
 });
 ```
 
-#### Start listen socket server
+#### 🎬 Start listen socket server
 
 ```js
 httpServer.listen(3001, () => {
@@ -71,14 +71,17 @@ httpServer.listen(3001, () => {
 });
 ```
 
-#### Start NodeJS Server
+#### 🏁 Start NodeJS Server
 
 ```bash
 node app.js
 ```
 
 
-## client.html
+## 📄 client.html
+
+You can use it in a simple html page
+
 ### add socket.io js
 
 ```html
@@ -87,7 +90,7 @@ node app.js
         crossorigin="anonymous"></script>
 ```
 
-## create socket and connect
+## 🔌 create socket and connect
 
 ```js
 var socket = io.connect('http://localhost:3001');
